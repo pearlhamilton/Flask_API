@@ -1,7 +1,11 @@
 from flask import Flask,request, jsonify
 from controllers import dogs
+from flask_cors import CORS
+
 
 server = Flask(__name__)
+CORS(server)
+
 
 @server.route('/') 
 def home(): # this will run when a GET request to '/' is made
