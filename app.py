@@ -3,16 +3,16 @@ from controllers import dogs
 from flask_cors import CORS
 
 
-server = Flask(__name__)
-CORS(server)
+app = Flask(__name__)
+CORS(app)
 
 
-@server.route('/') 
+@app.route('/') 
 def home(): # this will run when a GET request to '/' is made
     return 'Hello from Flask!'
 
 
-@server.route('/api/dogs', methods=['GET', 'POST'])
+@app.route('/api/dogs', methods=['GET', 'POST'])
 def dogs_handler():
     fns= {
         'GET': dogs.index,
@@ -22,7 +22,7 @@ def dogs_handler():
     return jsonify(resp), code
 
 
-@server.route('/api/dogs/<int:dog_id>',methods=['GET', 'PATCH', 'PUT'] )
+@app.route('/api/dogs/<int:dog_id>',methods=['GET', 'PATCH', 'PUT'] )
 def dog_handler(dog_id):
     fns = {
         'GET': dogs.show,
@@ -36,4 +36,4 @@ def dog_handler(dog_id):
 
 
 if __name__ == "__main__":
-    server.run(debug=True)
+    app.run(debug=True)
