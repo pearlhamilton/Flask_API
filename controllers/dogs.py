@@ -1,14 +1,23 @@
 from werkzeug.exceptions import BadRequest
+from models import Dog
 
 
-dogs = [
-    {'id': 1, 'name': 'Sadie', 'breed': 'Poodle', 'age': 3},
-    {'id': 2, 'name': 'Pickle', 'breed': 'French Bulldog','age': 5},
-    {'id': 3, 'name': 'Watson', 'breed': 'Boxer', 'age': 10}
-]
+
+# dogs = [
+#     {'id': 1, 'name': 'Sadie', 'breed': 'Poodle', 'age': 3},
+#     {'id': 2, 'name': 'Pickle', 'breed': 'French Bulldog','age': 5},
+#     {'id': 3, 'name': 'Watson', 'breed': 'Boxer', 'age': 10}
+# ]
 
 def index(req):
-    return [d for d in dogs], 200
+    dogs_list = []
+
+
+    dogs = Dog.query.all()
+    for dog in dogs:
+        dogs_list.append({"name":dog.name, "breed": dog.breed, "age":dog.age})
+    print(dogs_list)
+    return dogs_list, 200
 
 def create(req):
     new_dog = req.get_json()
