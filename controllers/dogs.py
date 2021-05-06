@@ -19,7 +19,17 @@ def create(req):
 def show(req, dog_id):
     return find_by_id(dog_id), 201
 
+def update(req, dog_id):
+    new_data = req.get_json()
+    dog = find_by_id(dog_id)
+    for key, val in new_data.items():
+        dog[key] = val
+    return dog, 200
 
+def destroy(req, dog_id):
+    dog_to_destory = find_by_id(dog_id)
+    dogs.remove(dog_to_destory)
+    return dog,204
 
 
 

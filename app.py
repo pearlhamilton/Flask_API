@@ -18,15 +18,16 @@ def dogs_handler():
     return jsonify(resp), code
 
 
-@server.route('/api/dogs/<int:dog_id>',methods=['GET'] )
+@server.route('/api/dogs/<int:dog_id>',methods=['GET', 'PATCH', 'PUT'] )
 def dog_handler(dog_id):
     fns = {
         'GET': dogs.show,
-        # 'PATCH': dogs.update,
-        # 'PUT': dogs.update,
-        # 'DELETE': dogs.destroy
+        'PATCH': dogs.update,
+        'PUT': dogs.update,
+        'DELETE': dogs.destroy
     }
     resp, code = fns[request.method](request, dog_id)
+    print(resp)
     return jsonify(resp), code
 
 
