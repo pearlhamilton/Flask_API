@@ -9,7 +9,7 @@ def home(): # this will run when a GET request to '/' is made
 
 
 @server.route('/api/dogs', methods=['GET', 'POST'])
-def dog_handler():
+def dogs_handler():
     fns= {
         'GET': dogs.index,
         'POST': dogs.create
@@ -18,6 +18,16 @@ def dog_handler():
     return jsonify(resp), code
 
 
+@server.route('/api/dogs/<int:dog_id>',methods=['GET'] )
+def dog_handler(dog_id):
+    fns = {
+        'GET': dogs.show,
+        # 'PATCH': dogs.update,
+        # 'PUT': dogs.update,
+        # 'DELETE': dogs.destroy
+    }
+    resp, code = fns[request.method](request, dog_id)
+    return jsonify(resp), code
 
 
 if __name__ == "__main__":
